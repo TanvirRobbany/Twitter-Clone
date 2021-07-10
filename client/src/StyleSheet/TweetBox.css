@@ -23,7 +23,7 @@
     border-top: 1px solid #eff3f4;
     padding: 0.5rem 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 

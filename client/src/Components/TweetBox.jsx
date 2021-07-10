@@ -10,7 +10,7 @@ const TweetBox = () => {
             <div className="tweet__input">
                 <input className="tweet__text" type="text" placeholder="What's happening?" />
                 <div className="file__post">
-                    <input type="file" />
+                  
                     <Button variant="contained" className="tweet__post">
                         Tweet
                     </Button>

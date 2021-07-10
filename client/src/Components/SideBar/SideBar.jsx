@@ -9,6 +9,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SideBarLayout from './SideBarLayout';
 
 
+
 const SideBar = () => {
     return (
         <div className="sidebar__container">

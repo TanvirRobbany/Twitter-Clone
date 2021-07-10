@@ -1,0 +1,37 @@
+.tweetbox__container {
+    padding: 0.5rem 1rem;
+    display: flex;
+}
+
+.tweet__input {
+    width: 100%;
+    margin-left: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.tweet__text {
+    width: 100%;
+    border: none;
+    font-size: larger;
+}
+
+.tweet__text:focus {
+    outline: none;
+}
+
+.file__post {
+    border-top: 1px solid #eff3f4;
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tweet__post {
+    background-color: #1c9ae7 !important;
+    text-transform: capitalize !important;
+    color: white !important;
+    border-radius: 50px !important;
+    font-size: 16px !important;
+}
+

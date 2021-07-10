@@ -1,0 +1,6 @@
+.home__container {
+    height: 100vh;
+    display: flex;
+    padding-left: 15%;
+    padding-right: 15%;
+}

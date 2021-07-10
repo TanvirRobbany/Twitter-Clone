@@ -1,0 +1,73 @@
+.auth__style__container {
+    display: flex;
+    height: 100vh;
+}
+
+.poster__container {
+    width: 50%;
+    background-image: url('../Picture/twitter-poster.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth__icon {
+    font-size: 500px !important;
+    color: white !important;
+}
+
+.form__container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.signup__form, .signin__form {
+    height: 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.signup__form {
+    margin-left: 40%;
+}
+
+.signin__form {
+    margin-left: 10%;
+}
+
+h1 {
+    margin-bottom: 2rem;
+}
+
+label {
+    font-size: larger;
+}
+
+input {
+    margin-bottom: 2rem;
+    height: 30px;
+    font-size: larger;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    background-color: #1b95e0;
+    border: none;
+    outline: none;
+    font-size: 24px;
+    color: white;
+    height: 40px;
+    border-radius: 50px;
+}
+
+button:hover {
+    background-color:rgb(85, 175, 228);
+}
+

@@ -1,0 +1,3 @@
+User Interface Design Implementaion: 4 to 5 Hours
+API Development: 3 to 4 Hours
+API Integration: 2 to 3 Hours

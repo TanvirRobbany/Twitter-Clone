@@ -13,6 +13,7 @@ const HomeFeed = () => {
 
     const handleLike = async (id) => {
         await axios.put(`${BASE_URL}/api/tweet/like/`+id)
+        setMounted(true);
     }
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const HomeFeed = () => {
         loadTweets();
         // console.log("tweets===>", tweets)
         return () => { setMounted(false) };
-    }, [mounted, tweets, handleLike()]);
+    }, [mounted, tweets]);
     return (
         <div className="home__feed__container">
             <h2 className="home__title">Home</h2>

@@ -1,9 +1,11 @@
 const router = require('express').Router();
 
-const{tweetPost, tweetList, tweetLikes} = require('../controller/tweetController');
+const{tweetPost, tweetList, tweetLikes, myTweets, deletTweet} = require('../controller/tweetController');
 
 router.post('/post', tweetPost);
-router.get('/list', tweetList);
-router.put('/like/:id', tweetLikes)
+router.post('/list', tweetList);
+router.put('/like/:id/:userId', tweetLikes);
+router.get('/my-tweet/list/:id', myTweets);
+router.delete('/delete/:id', deletTweet)
 
 module.exports = router;

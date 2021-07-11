@@ -55,7 +55,7 @@ exports.signIn = async (req, res) => {
         res.status(400).json({msg: 'Invalid Credentials'})
     }
 
-    const token = jwt.sign({id: user._id, name: user.user_name, auth: true}, process.env.jwt_secret);
+    const token = jwt.sign({id: user._id, name: user.user_name, auth: true, user: user}, process.env.jwt_secret);
     return res.status(200).json({token: token, msg: 'Successfully Logged In'})
 }
 
@@ -77,7 +77,7 @@ exports.userFollow =  (req, res) => {
     const {follower_id, following_id} = req.body;
     console.log(follower_id, follower_id)
 
-    USER.updateOne({_id: follower_id}, {$push: {following: following_id}}, async (err, follower) => {
+    USER.updateOne({_id: follower_id}, {$push: {following: following_id}}, (err, follower) => {
         if(err) {
             res.status(400).json({msg: 'Bad Request'})
         }

@@ -22,7 +22,8 @@ exports.tweetPost = async (req, res) => {
 }
 
 exports.tweetList = async (req, res) => {
-    await TWEET.find({}).populate("user").exec((err, tweets) => {
+    const {following} = req.body;
+    await TWEET.find({user: {$in: following}}).populate("user").exec((err, tweets) => {
         if(!tweets) {
             res.status(200).json({msg: 'No Tweets Found'})
         }
@@ -36,22 +37,11 @@ exports.tweetList = async (req, res) => {
 }
 
 exports.tweetLikes = async (req, res) => {
-    const {id} = req.params;
+    const {id, userId} = req.params;
 
     const tweet = await TWEET.findOne({_id: id});
 
-    const likes = tweet.likes;
-    const newLikes = likes + 1;
-
-    const query = {
-        _id: id
-    };
-
-    const newData = {
-        likes: newLikes
-    };
-
-    await TWEET.findByIdAndUpdate(query, newData, (err, tweet) => {
+    TWEET.updateOne({_id: id}, {$push: {likes: userId}}, (err, tweet) => {
         if(!tweet) {
             res.status(200).json({msg: 'No Tweets Found'})
         }
@@ -60,6 +50,38 @@ exports.tweetLikes = async (req, res) => {
         }
         else {
             res.status(200).json({tweet: tweet, msg: 'Successfully Updated'})
+        }
+    })
+}
+
+exports.myTweets = async (req, res) => {
+    const {id} = req.params;
+
+    await TWEET.find({user: id}).populate("user").exec((err, tweets) => {
+        if(!tweets) {
+            res.status(200).json({msg: 'No Tweets Found'})
+        }
+        else if (err) {
+            res.status(400).json({msg: 'Bad Request'})
+        }
+        else {
+            res.status(200).json({tweets: tweets, msg: 'Tweets List Found'})
+        }
+    })
+}
+
+exports.deletTweet = async (req, res) => {
+    const {id} = req.params;
+
+    await TWEET.findByIdAndRemove({_id: id}).exec((err, tweet) => {
+        if(!tweet) {
+            res.status(200).json({msg: 'No Tweets Found'})
+        }
+        else if (err) {
+            res.status(400).json({msg: 'Bad Request'})
+        }
+        else {
+            res.status(200).json({tweet: tweet, msg: 'Tweet Deleted'})
         }
     })
 }

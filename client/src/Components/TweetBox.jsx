@@ -7,6 +7,7 @@ import "../StyleSheet/TweetBox.css"
 
 const TweetBox = () => {
     const userId = window.localStorage.getItem('uid');
+    const userName = window.localStorage.getItem('uname');
     const [tweet, setTweet] = useState("");
 
     const handleTweet = async () => {
@@ -16,11 +17,12 @@ const TweetBox = () => {
         };
         
         const res = await axios.post(`${BASE_URL}/api/tweet/post`, tweetObj)
-        console.log(res)
+        // console.log(res);
+        setTweet('');
     }
     return (
         <div className="tweetbox__container">
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt={userName} src="/static/images/avatar/1.jpg" />
             <div className="tweet__input">
                 <input onChange={(e) => setTweet(e.target.value)} value={tweet} className="tweet__text" type="text" placeholder="What's happening?" />
                 <div className="file__post">

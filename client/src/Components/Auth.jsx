@@ -42,7 +42,9 @@ const Auth =  () => {
             const decoded = decode(res.data.token);
             const uid = decoded.id;
             const auth = decoded.auth;
+            const uname = decoded.name;
             window.localStorage.setItem('uid', uid);
+            window.localStorage.setItem('uname', uname);
             window.localStorage.setItem('auth', auth);
             document.getElementById("reset__signin__form").reset();
             history.push('/home')

@@ -15,3 +15,26 @@
     border-top: 1px solid #eff3f4;
     border-bottom: 1px solid #eff3f4;
 }
+
+.tweet__content {
+    display: flex;
+    padding: 0.5rem 0.5rem;
+}
+
+.tweet__content:hover {
+    background-color: #f7f7f7;
+}
+
+.user__avatar {
+    margin-right: 0.25rem;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+h3 {
+    margin-right: 0.4rem;
+}

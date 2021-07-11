@@ -5,7 +5,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 import SideBarLayout from './SideBarLayout';
@@ -13,8 +13,11 @@ import SideBarLayout from './SideBarLayout';
 
 
 const SideBar = () => {
+    const history = useHistory()
     const handleClick = () => {
         window.localStorage.clear();
+        history.push('/')
+        window.location.reload();
     }
     return (
         <div className="sidebar__container">

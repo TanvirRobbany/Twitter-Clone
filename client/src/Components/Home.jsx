@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import "../StyleSheet/Home.css";
 import SideBar from './SideBar/SideBar';
 import HomeFeed from './HomeFeed';
 import Follow from './Follow';
+import Profile from './Profile';
+import UserProfile from './UserProfile';
 // import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
-import {  Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 
 
 const Home = () => {
     let authorization = window.localStorage.getItem('auth');
     // console.log("authorization==>", authorization)
     if (!authorization) {
-        return <Redirect to="/"/>
+        return <Redirect to="/" />
     }
 
     return (
-        <div className="home__container">
-            <SideBar className="sidebar"/>
-            <HomeFeed/>
-            <Follow/>
-        </div>
+        <Router>
+            <div className="home__container">
+                <SideBar className="sidebar" />
+                <Switch>
+                    <Route exact path="/home" component={HomeFeed} />
+                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/user-profile" component={UserProfile} />
+                </Switch>
+                <Follow />
+            </div>
+        </Router>
     )
 }
 

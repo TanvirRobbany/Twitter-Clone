@@ -46,6 +46,7 @@ const Auth =  () => {
             window.localStorage.setItem('uid', uid);
             window.localStorage.setItem('uname', uname);
             window.localStorage.setItem('auth', auth);
+            window.localStorage.setItem('token', res.data.token);
             document.getElementById("reset__signin__form").reset();
             history.push('/home')
         }

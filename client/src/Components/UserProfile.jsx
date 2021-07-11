@@ -1,41 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react'
+import Avatar from '@material-ui/core/Avatar';
+import decode from 'jwt-decode';
 import axios from 'axios';
 import { BASE_URL } from '../config/config';
-import Avatar from '@material-ui/core/Avatar';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import decode from 'jwt-decode';
-import jwt from 'jsonwebtoken';
-import {Link} from 'react-router-dom';
 
-import "../StyleSheet/HomeFeed.css"
 
-import TweetBox from './TweetBox';
 
-const HomeFeed = () => {
+import "../StyleSheet/Profile.css"
+
+const UserProfile = () => {
+    // let authorization = window.localStorage.getItem('auth');
+    // console.log("authorization==>", authorization)
+    console.log(window.localStorage.getItem('user'))
+    
+    const user = decode(window.localStorage.getItem('userToken'))
+    console.log("user===>",user)
     const [tweets, setTweets] = useState([]);
     const [mounted, setMounted] = useState(true);
-    const authUser = decode(window.localStorage.getItem('token'));
+    // const user = decode(window.localStorage.getItem('token'));
+    var userId = user._id;
 
     const handleLike = async (tweet) => {
-        const userId = window.localStorage.getItem('uid')
         if(!tweet.likes.includes(userId)){
             await axios.put(`${BASE_URL}/api/tweet/like/`+tweet._id+`/`+userId)
             setMounted(true);
         }
     }
 
-    const handleUser = (user) => {
-        const userToken = jwt.sign(user, "secret");
-
-        window.localStorage.setItem('userToken', userToken)
-    }
-
     useEffect(() => {
         const loadTweets = async () => {
-            const listObj = {
-                following: authUser.user.following,
-            }
-            const { data } = await axios.post(`${BASE_URL}/api/tweet/list`, listObj);
+            // const listObj = {
+            //     following: .user.following,
+            // }
+            const { data } = await axios.get(`${BASE_URL}/api/tweet/my-tweet/list/`+userId);
             if (mounted) {
                 setTweets(data.tweets);
             }
@@ -45,11 +43,22 @@ const HomeFeed = () => {
         return () => { setMounted(false) };
     }, [mounted, tweets]);
     return (
-        <div className="home__feed__container">
-            <h2 className="home__title">Home</h2>
-            <TweetBox />
+        <div className="profile__container">
+            <h2 className="profile__title">User Profile</h2>
+            <div className="profile__info">
+                <Avatar alt="Samin" src="/static/images/avatar/1.jpg" />
+                <h3>{user.user_name}</h3>
+                <h4>{`@${user.user_name.toLowerCase()}`}</h4>
+                <div className="follower">
+                    <h2>{user.followers.length}</h2>
+                    <h3>Follower</h3>
+                </div>
+                <div className="following">
+                    <h2>{user.following.length}</h2>
+                    <h3>Following</h3>
+                </div>
+            </div>
             <div className="divider"></div>
-            {/* <div className="tweetsss"> */}
             {
                 tweets && (
                     <div className="tweets">
@@ -62,7 +71,7 @@ const HomeFeed = () => {
                                     </div>
                                     <div className="tweet">
                                         <div className="user">
-                                            <Link to="/user-profile" onClick={()=> handleUser(tweet.user)}><h3>{tweet.user.user_name}</h3></Link>
+                                            <h3>{tweet.user.user_name}</h3>
                                             <h4>{`@${tweet.user.user_name.toLowerCase()}`}</h4>
                                         </div>
                                         <h4>{tweet.tweet}</h4>
@@ -77,9 +86,9 @@ const HomeFeed = () => {
                     </div>
                 )
             }
-            {/* </div> */}
         </div>
     )
 }
 
-export default HomeFeed
+export default UserProfile
+

@@ -1,0 +1,41 @@
+.profile__container {
+    width: 50%;
+    border-left: 1px solid #eff3f4;
+    border-right: 1px solid #eff3f4;
+}
+
+.profile__title {
+    padding: 1rem;
+    border-bottom: 1px solid #eff3f4;
+}
+
+.profile__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem 0;
+}
+
+.follower, .following {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.divider{
+    height: 14px;
+    background-color: #f7f9f9;
+    border-top: 1px solid #eff3f4;
+    border-bottom: 1px solid #eff3f4;
+}
+
+.delete__button {
+    background-color: #da4646 !important;
+    text-transform: capitalize !important;
+    color: white !important;
+    height: 25px !important;
+    border-radius: 50px !important;
+    font-size: 16px !important;
+    margin: 0 0.5rem !important;
+}

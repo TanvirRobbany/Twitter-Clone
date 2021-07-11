@@ -34,3 +34,32 @@ exports.tweetList = async (req, res) => {
         }
     })
 }
+
+exports.tweetLikes = async (req, res) => {
+    const {id} = req.params;
+
+    const tweet = await TWEET.findOne({_id: id});
+
+    const likes = tweet.likes;
+    const newLikes = likes + 1;
+
+    const query = {
+        _id: id
+    };
+
+    const newData = {
+        likes: newLikes
+    };
+
+    await TWEET.findByIdAndUpdate(query, newData, (err, tweet) => {
+        if(!tweet) {
+            res.status(200).json({msg: 'No Tweets Found'})
+        }
+        else if (err) {
+            res.status(400).json({msg: 'Bad Request'})
+        }
+        else {
+            res.status(200).json({tweet: tweet, msg: 'Successfully Updated'})
+        }
+    })
+}

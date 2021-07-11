@@ -55,6 +55,6 @@ exports.signIn = async (req, res) => {
         res.status(400).json({msg: 'Invalid Credentials'})
     }
 
-    const token = jwt.sign({id: user._id, auth: true}, process.env.jwt_secret);
+    const token = jwt.sign({id: user._id, name: user.user_name, auth: true}, process.env.jwt_secret);
     return res.status(200).json({token: token, msg: 'Successfully Logged In'})
 }

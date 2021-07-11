@@ -34,6 +34,8 @@ app.listen(PORT, () => {
 
 //=================================================ROUTERS=====================================
 const authRouter = require('./routes/auth');
+const tweetRouter = require('./routes/tweet');
 
 //=====================================================API ROUTES===========================================
 app.use('/api/auth', authRouter);
+app.use('/api/tweet', tweetRouter);

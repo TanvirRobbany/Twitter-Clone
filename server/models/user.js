@@ -15,13 +15,13 @@ const userSchema = Schema({
     followers: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'users'
         }
     ],
     following: [
         {
             type: Schema.Types.ObjectId,
-            reg: 'user'
+            reg: 'users'
         }
     ]
 });

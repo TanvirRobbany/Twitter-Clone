@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../config/config';
 import Avatar from '@material-ui/core/Avatar';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "../StyleSheet/HomeFeed.css"
 
 import TweetBox from './TweetBox';
@@ -9,6 +10,10 @@ import TweetBox from './TweetBox';
 const HomeFeed = () => {
     const [tweets, setTweets] = useState([]);
     const [mounted, setMounted] = useState(true);
+
+    const handleLike = async (id) => {
+        await axios.put(`${BASE_URL}/api/tweet/like/`+id)
+    }
 
     useEffect(() => {
         const loadTweets = async () => {
@@ -19,8 +24,8 @@ const HomeFeed = () => {
         }
         loadTweets();
         // console.log("tweets===>", tweets)
-        // return () => { setMounted(false) };
-    }, [mounted, tweets]);
+        return () => { setMounted(false) };
+    }, [mounted, tweets, handleLike()]);
     return (
         <div className="home__feed__container">
             <h2 className="home__title">Home</h2>
@@ -43,6 +48,10 @@ const HomeFeed = () => {
                                             <h4>{`@${tweet.user.user_name.toLowerCase()}`}</h4>
                                         </div>
                                         <h4>{tweet.tweet}</h4>
+                                        <div className="likes">
+                                        <FavoriteBorderIcon onClick={() => handleLike(tweet._id)} className="like__icon"/>
+                                        <div className="likes__count">{tweet.likes}</div>
+                                        </div>
                                     </div>
                                 </div>)
                             })

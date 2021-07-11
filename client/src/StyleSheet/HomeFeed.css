@@ -19,6 +19,7 @@
 .tweet__content {
     display: flex;
     padding: 0.5rem 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .tweet__content:hover {
@@ -37,4 +38,19 @@
 
 h3 {
     margin-right: 0.4rem;
+}
+
+.likes {
+    display: flex;
+    align-items: center;
+}
+
+.like__icon:hover {
+    cursor: pointer;
+    color: red !important;
+}
+
+.likes__count {
+    font-size: 20px;
+    margin-left: 1rem;
 }

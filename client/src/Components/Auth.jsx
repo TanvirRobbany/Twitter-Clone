@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 
 
 
-const Auth = () => {
+const Auth =  () => {
     const history = useHistory();
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -38,10 +38,12 @@ const Auth = () => {
         const res = await axios.post(`${BASE_URL}/api/auth/signin`, signIn);
         console.log("resss===>", res)
         if (res.status === 200) {
-            // console.log("token", decode(res.data.token));
+            console.log("token", decode(res.data.token));
             const decoded = decode(res.data.token);
             const uid = decoded.id;
+            const auth = decoded.auth;
             window.localStorage.setItem('uid', uid);
+            window.localStorage.setItem('auth', auth);
             document.getElementById("reset__signin__form").reset();
             history.push('/home')
         }

@@ -4,6 +4,8 @@ import Auth from './Components/Auth';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
+  // const authorization = window.localStorage.getItem('auth');
+  // let history = useHistory();
   return (
     <div className="App">
       <Router>

@@ -5,18 +5,24 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+
 
 import SideBarLayout from './SideBarLayout';
 
 
 
 const SideBar = () => {
+    const handleClick = () => {
+        window.localStorage.clear();
+    }
     return (
         <div className="sidebar__container">
             <TwitterIcon className="twitter__icon"/>
-            <SideBarLayout Icon={HomeIcon} text={'Home'}/>
-            <SideBarLayout Icon={AccountCircleIcon} text={'Profile'}/>
-            <SideBarLayout Icon={ExitToAppIcon} text={'Log Out'}/>
+            <Link to="/home"><SideBarLayout Icon={HomeIcon} text={'Home'}/></Link>
+            <Link to="/profile"><SideBarLayout Icon={AccountCircleIcon} text={'Profile'}/></Link>
+            <Link to='/' onClick={handleClick}><SideBarLayout Icon={ExitToAppIcon} text={'Log Out'}/></Link>
+            
         </div>
     )
 }

@@ -75,7 +75,6 @@ exports.userList = async (req, res) => {
 
 exports.userFollow =  (req, res) => {
     const {follower_id, following_id} = req.body;
-    console.log(follower_id, follower_id)
 
     USER.updateOne({_id: follower_id}, {$push: {following: following_id}}, (err, follower) => {
         if(err) {

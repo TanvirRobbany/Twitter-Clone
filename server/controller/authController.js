@@ -36,7 +36,6 @@ exports.signUp = async (req, res) => {
 
 exports.signIn = async (req, res) => {
     const { email, password } = req.body;
-    let validatedPassword;
 
     if (!email || !password) {
         res.status(400).json({ msg: 'All Fields Are Rquired' });
@@ -61,29 +60,8 @@ exports.signIn = async (req, res) => {
                 res.status(200).json({ token: token, msg: 'Successfully Logged In' })
                 }
             });
-            // if (validatedPassword) {
-            //     const token = jwt.sign({ id: user._id, name: user.user_name, auth: true, user: user }, process.env.jwt_secret);
-            //     res.status(200).json({ token: token, msg: 'Successfully Logged In' })
-            // }
         }
     })
-
-
-    // if (!user) {
-    //     res.status(404).json({msg: 'Not Registered'});
-    // }
-    // else {
-    //      validatedPassword = bcrypt.compare(password, user.password);
-    // }
-
-    // if (!validatedPassword) {
-    //     res.status(400).json({msg: 'Invalid Credentials'})
-    // }
-
-    // const token = jwt.sign({id: user._id, name: user.user_name, auth: true, user: user}, process.env.jwt_secret);
-    // if (user && validatedPassword){
-    //     return res.status(200).json({token: token, msg: 'Successfully Logged In'})
-    // }
 }
 
 exports.userList = async (req, res) => {

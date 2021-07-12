@@ -11,46 +11,49 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "../StyleSheet/Profile.css"
 
 const Profile = () => {
-    let authorization = window.localStorage.getItem('auth');
-    // console.log("authorization==>", authorization)
-
     const authUser = decode(window.localStorage.getItem('token'))
+    console.log("profile===>", authUser)
     const [tweets, setTweets] = useState([]);
     const [mounted, setMounted] = useState(true);
-    // const authUser = decode(window.localStorage.getItem('token'));
     var userId = window.localStorage.getItem('uid')
+
+    const accessToken = window.localStorage.getItem('token');
+
+    const authAxios = axios.create({
+        headers: {
+            Authorization: accessToken,
+        }
+    })
 
     const handleLike = async (tweet) => {
         if (!tweet.likes.includes(userId)) {
-            await axios.put(`${BASE_URL}/api/tweet/like/` + tweet._id + `/` + userId)
+            await authAxios.put(`${BASE_URL}/api/tweet/like/` + tweet._id + `/` + userId)
             setMounted(true);
         }
     }
 
     const handleDelete = async (id) => {
-        await axios.delete(`${BASE_URL}/api/tweet/delete/` + id)
+        await authAxios.delete(`${BASE_URL}/api/tweet/delete/` + id)
         setMounted(true);
+        loadTweets();
     }
 
-    useEffect(() => {
-        const loadTweets = async () => {
-            const listObj = {
-                following: authUser.user.following,
-            }
-            const { data } = await axios.get(`${BASE_URL}/api/tweet/my-tweet/list/` + userId);
-            if (mounted) {
-                setTweets(data.tweets);
-            }
+    const loadTweets = async () => {
+        const { data } = await authAxios.get(`${BASE_URL}/api/tweet/my-tweet/list/` + userId);
+        if (mounted) {
+            setTweets(data.tweets);
         }
+    }
+    useEffect(() => {
         loadTweets();
-        // console.log("tweets===>", tweets)
         return () => { setMounted(false) };
     }, [mounted]);
+
     return (
         <div className="profile__container">
             <h2 className="profile__title">Profile</h2>
             <div className="profile__info">
-                <Avatar alt="Samin" src="/static/images/avatar/1.jpg" />
+                <Avatar alt={authUser.name} src="/static/images/avatar/1.jpg" />
                 <h3>{authUser.name}</h3>
                 <h4>{`@${authUser.name.toLowerCase()}`}</h4>
                 <div className="follower">
@@ -65,7 +68,7 @@ const Profile = () => {
             <div className="divider"></div>
             {
                 tweets && (
-                    <div className="tweets">
+                    <div className="my__tweets">
                         {
                             tweets.map(tweet => {
                                 return (

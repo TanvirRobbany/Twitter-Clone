@@ -10,43 +10,44 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "../StyleSheet/Profile.css"
 
 const UserProfile = () => {
-    // let authorization = window.localStorage.getItem('auth');
-    // console.log("authorization==>", authorization)
     console.log(window.localStorage.getItem('user'))
     
     const user = decode(window.localStorage.getItem('userToken'))
     console.log("user===>",user)
     const [tweets, setTweets] = useState([]);
     const [mounted, setMounted] = useState(true);
-    // const user = decode(window.localStorage.getItem('token'));
     var userId = user._id;
+
+    const accessToken = window.localStorage.getItem('token');
+
+    const authAxios = axios.create({
+        headers: {
+            Authorization: accessToken,
+        }
+    })
 
     const handleLike = async (tweet) => {
         if(!tweet.likes.includes(userId)){
-            await axios.put(`${BASE_URL}/api/tweet/like/`+tweet._id+`/`+userId)
+            await authAxios.put(`${BASE_URL}/api/tweet/like/`+tweet._id+`/`+userId)
             setMounted(true);
         }
     }
 
     useEffect(() => {
         const loadTweets = async () => {
-            // const listObj = {
-            //     following: .user.following,
-            // }
-            const { data } = await axios.get(`${BASE_URL}/api/tweet/my-tweet/list/`+userId);
+            const { data } = await authAxios.get(`${BASE_URL}/api/tweet/my-tweet/list/`+userId);
             if (mounted) {
                 setTweets(data.tweets);
             }
         }
         loadTweets();
-        // console.log("tweets===>", tweets)
         return () => { setMounted(false) };
     }, [mounted, tweets]);
     return (
         <div className="profile__container">
             <h2 className="profile__title">User Profile</h2>
             <div className="profile__info">
-                <Avatar alt="Samin" src="/static/images/avatar/1.jpg" />
+                <Avatar alt={user.user_name} src="/static/images/avatar/1.jpg" />
                 <h3>{user.user_name}</h3>
                 <h4>{`@${user.user_name.toLowerCase()}`}</h4>
                 <div className="follower">
@@ -61,7 +62,7 @@ const UserProfile = () => {
             <div className="divider"></div>
             {
                 tweets && (
-                    <div className="tweets">
+                    <div className="my__tweets">
                         {
                             tweets.map(tweet => {
                                 return (

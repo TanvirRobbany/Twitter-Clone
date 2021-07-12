@@ -16,6 +16,12 @@
     border-bottom: 1px solid #eff3f4;
 }
 
+.tweets {
+    height: 750px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
 .tweet__content {
     display: flex;
     padding: 0.5rem 0.5rem;

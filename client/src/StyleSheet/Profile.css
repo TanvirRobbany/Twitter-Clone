@@ -30,6 +30,12 @@
     border-bottom: 1px solid #eff3f4;
 }
 
+.my__tweets {
+    height: 812px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
 .delete__button {
     background-color: #da4646 !important;
     text-transform: capitalize !important;

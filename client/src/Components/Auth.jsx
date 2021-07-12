@@ -5,9 +5,6 @@ import { BASE_URL } from '../config/config';
 import axios from 'axios';
 import decode from 'jwt-decode';
 import { useHistory } from 'react-router-dom';
-// import Button from '@material-ui/core/Button';
-
-
 
 const Auth =  () => {
     const history = useHistory();
@@ -24,6 +21,7 @@ const Auth =  () => {
         console.log("resss===>", res)
         if (res.status === 200) {
             document.getElementById("reset__signup__form").reset();
+            alert(res.data.msg);
         }
     };
 

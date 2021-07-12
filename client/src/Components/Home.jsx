@@ -5,8 +5,7 @@ import HomeFeed from './HomeFeed';
 import Follow from './Follow';
 import Profile from './Profile';
 import UserProfile from './UserProfile';
-// import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 
 const Home = () => {

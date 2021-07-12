@@ -15,11 +15,18 @@ const HomeFeed = () => {
     const [tweets, setTweets] = useState([]);
     const [mounted, setMounted] = useState(true);
     const authUser = decode(window.localStorage.getItem('token'));
+    const accessToken = window.localStorage.getItem('token');
+
+    const authAxios = axios.create({
+        headers: {
+            Authorization: accessToken,
+        }
+    })
 
     const handleLike = async (tweet) => {
         const userId = window.localStorage.getItem('uid')
         if(!tweet.likes.includes(userId)){
-            await axios.put(`${BASE_URL}/api/tweet/like/`+tweet._id+`/`+userId)
+            await authAxios.put(`${BASE_URL}/api/tweet/like/`+tweet._id+`/`+userId)
             setMounted(true);
         }
     }
@@ -30,26 +37,26 @@ const HomeFeed = () => {
         window.localStorage.setItem('userToken', userToken)
     }
 
-    useEffect(() => {
-        const loadTweets = async () => {
-            const listObj = {
-                following: authUser.user.following,
-            }
-            const { data } = await axios.post(`${BASE_URL}/api/tweet/list`, listObj);
-            if (mounted) {
-                setTweets(data.tweets);
-            }
+    const loadTweets = async () => {
+        const listObj = {
+            following: authUser.user.following,
         }
+        const { data } = await authAxios.post(`${BASE_URL}/api/tweet/list`, listObj);
+        if (mounted) {
+            setTweets(data.tweets);
+        }
+    }
+    
+    useEffect(() => {
         loadTweets();
-        // console.log("tweets===>", tweets)
         return () => { setMounted(false) };
     }, [mounted, tweets]);
+
     return (
         <div className="home__feed__container">
             <h2 className="home__title">Home</h2>
             <TweetBox />
             <div className="divider"></div>
-            {/* <div className="tweetsss"> */}
             {
                 tweets && (
                     <div className="tweets">
@@ -77,7 +84,6 @@ const HomeFeed = () => {
                     </div>
                 )
             }
-            {/* </div> */}
         </div>
     )
 }

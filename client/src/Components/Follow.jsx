@@ -6,15 +6,19 @@ import Button from '@material-ui/core/Button';
 import decode from 'jwt-decode';
 import axios from 'axios';
 
-
-
 const Follow = () => {
     const [users, setUsers] = useState([]);
     const [mounted, setMounted] = useState(true);
     let loggedInUserId = window.localStorage.getItem("uid");
     const authUser = decode(window.localStorage.getItem('token'));
-    // const user = decode(window.localStorage.getItem('userToken'));
-    console.log(authUser)
+    console.log(authUser);
+    const accessToken = window.localStorage.getItem('token');
+
+    const authAxios = axios.create({
+        headers: {
+            Authorization: accessToken,
+        }
+    })
 
     const handleFollow = async (id) => {
         const followObj = {
@@ -22,20 +26,26 @@ const Follow = () => {
             following_id: id
         }
 
-        await axios.put(`${BASE_URL}/api/auth/user/follow`, followObj);
+        const res = await authAxios.put(`${BASE_URL}/api/auth/user/follow`, followObj);
+        window.localStorage.setItem('token', res.data.token);
         setMounted(true);
-    } 
-
-    useEffect(() => {
-        const loadUsers = async () => {
-            const { data } = await axios.get(`${BASE_URL}/api/auth/users`);
-            if (mounted) {
-                setUsers(data.users)
-            }
-        }
         loadUsers();
+        window.location.reload();
+        console.log("mounted====>", mounted)
+    }
+
+    const loadUsers = async () => {
+        const { data } = await authAxios.get(`${BASE_URL}/api/auth/users`);
+        if (mounted) {
+            setUsers(data.users)
+        }
+    }
+    useEffect(() => {
+        loadUsers();
+        console.log("useeffect call====>", mounted)
         return () => { setMounted(false) }
     }, [mounted]);
+
     return (
         <div>
             <div className="follow__container">
@@ -46,7 +56,7 @@ const Follow = () => {
                     <div className="users">
                         {
                             users.map(user => {
-                                if (user._id != authUser.id && !authUser.user.following.includes(user._id)){
+                                if (user._id != authUser.user._id && !authUser.user.following.includes(user._id)){
                                     return (
                                         <div className="user__container">
                                             <div className="user__avatar">

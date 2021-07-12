@@ -10,14 +10,22 @@ const TweetBox = () => {
     const userName = window.localStorage.getItem('uname');
     const [tweet, setTweet] = useState("");
 
+    const accessToken = window.localStorage.getItem('token');
+
+    const authAxios = axios.create({
+        headers: {
+            Authorization: accessToken,
+        }
+    })
+
     const handleTweet = async () => {
         const tweetObj = {
             user_id: userId,
             tweet: tweet
         };
         
-        const res = await axios.post(`${BASE_URL}/api/tweet/post`, tweetObj)
-        // console.log(res);
+        const res = await authAxios.post(`${BASE_URL}/api/tweet/post`, tweetObj)
+        alert(res.data.msg);
         setTweet('');
     }
     return (

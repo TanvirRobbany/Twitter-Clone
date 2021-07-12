@@ -55,7 +55,7 @@ const Follow = () => {
                             users.map(user => {
                                 if (user._id != authUser.user._id && !authUser.user.following.includes(user._id)){
                                     return (
-                                        <div className="user__container">
+                                        <div key={user._id} className="user__container">
                                             <div className="user__avatar">
                                                 <Avatar alt={user.user_name} src="/static/images/avatar/1.jpg" />
                                             </div>

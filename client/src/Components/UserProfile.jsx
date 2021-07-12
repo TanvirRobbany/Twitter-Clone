@@ -63,7 +63,7 @@ const UserProfile = () => {
                         {
                             tweets.map(tweet => {
                                 return (
-                                <div className="tweet__content">
+                                <div key={tweet._id} className="tweet__content">
                                     <div className="user__avatar">
                                         <Avatar alt={tweet.user.user_name} src="/static/images/avatar/1.jpg" />
                                     </div>

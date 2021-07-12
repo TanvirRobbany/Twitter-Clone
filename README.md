@@ -32,3 +32,13 @@ npm start
 ```
 npm run dev
 ```
+
+### Information
+Some user credentials to use the application
+* Password: 123456
+* Email-1: a@a.com
+* Email-2: b@b.com
+* Email-3: c@c.com
+* Email-4: d@d.com
+* Email-5: e@e.com
+* Email-6: f@f.com

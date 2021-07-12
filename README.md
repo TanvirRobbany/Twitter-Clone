@@ -5,6 +5,17 @@ Twitter Clone
 ## Description
 
 Twitter functionality clone.
+* You can register
+* By registering you can sing in
+* You can tweet
+* You can follow other users
+* Your home timeline will be feeded by the tweets of other users whom you follows
+* By clicking on the name of a user of a tweet in your timeline you can visit the user profile
+* You can like other's tweets once
+* From your profile you can get your followers and following count and your tweets
+* You can also delete your tweets from you profile
+* From your ohter user profile you can get their followers and following count and tweets
+
 
 ## Getting Started
 

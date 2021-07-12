@@ -82,12 +82,14 @@ exports.userFollow =  (req, res) => {
             res.status(400).json({msg: 'Bad Request'})
         }
         else {
-             USER.updateOne({_id: following_id}, {$push: {followers: follower_id}}, (err, following) => {
+             USER.updateOne({_id: following_id}, {$push: {followers: follower_id}}, async (err, following) => {
                 if(err) {
                     res.status(400).json({msg: 'Bad Request'})
                 }
                 else {
-                    res.status(200).json({msg: 'Followed'})
+                    const user =  await USER.findOne({_id: follower_id});
+                    const token = jwt.sign({name: user.user_name, user: user}, process.env.jwt_secret);
+                    res.status(200).json({token: token, msg: 'Followed'})
                 }
             })
         }

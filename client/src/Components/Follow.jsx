@@ -28,7 +28,6 @@ const Follow = () => {
         const res = await authAxios.put(`${BASE_URL}/api/auth/user/follow`, followObj);
         window.localStorage.setItem('token', res.data.token);
         setMounted(true);
-        // loadUsers();
         window.location.reload();
     }
 

@@ -11,7 +11,6 @@ const Follow = () => {
     const [mounted, setMounted] = useState(true);
     let loggedInUserId = window.localStorage.getItem("uid");
     const authUser = decode(window.localStorage.getItem('token'));
-    console.log(authUser);
     const accessToken = window.localStorage.getItem('token');
 
     const authAxios = axios.create({
@@ -31,7 +30,6 @@ const Follow = () => {
         setMounted(true);
         loadUsers();
         window.location.reload();
-        console.log("mounted====>", mounted)
     }
 
     const loadUsers = async () => {
@@ -42,7 +40,6 @@ const Follow = () => {
     }
     useEffect(() => {
         loadUsers();
-        console.log("useeffect call====>", mounted)
         return () => { setMounted(false) }
     }, [mounted]);
 

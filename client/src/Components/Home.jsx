@@ -10,7 +10,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 
 const Home = () => {
     let authorization = window.localStorage.getItem('auth');
-    // console.log("authorization==>", authorization)
     if (!authorization) {
         return <Redirect to="/" />
     }

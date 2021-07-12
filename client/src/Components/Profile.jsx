@@ -12,7 +12,6 @@ import "../StyleSheet/Profile.css"
 
 const Profile = () => {
     const authUser = decode(window.localStorage.getItem('token'))
-    console.log("profile===>", authUser)
     const [tweets, setTweets] = useState([]);
     const [mounted, setMounted] = useState(true);
     var userId = window.localStorage.getItem('uid')

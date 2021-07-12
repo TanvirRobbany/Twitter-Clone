@@ -10,10 +10,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import "../StyleSheet/Profile.css"
 
 const UserProfile = () => {
-    console.log(window.localStorage.getItem('user'))
-    
     const user = decode(window.localStorage.getItem('userToken'))
-    console.log("user===>",user)
     const [tweets, setTweets] = useState([]);
     const [mounted, setMounted] = useState(true);
     var userId = user._id;

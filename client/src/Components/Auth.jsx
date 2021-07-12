@@ -18,7 +18,6 @@ const Auth =  () => {
         };
 
         const res = await axios.post(`${BASE_URL}/api/auth/signup`, signUp);
-        console.log("resss===>", res)
         if (res.status === 200) {
             document.getElementById("reset__signup__form").reset();
             alert(res.data.msg);
@@ -34,9 +33,7 @@ const Auth =  () => {
         };
 
         const res = await axios.post(`${BASE_URL}/api/auth/signin`, signIn);
-        console.log("resss===>", res)
         if (res.status === 200) {
-            console.log("token", decode(res.data.token));
             const decoded = decode(res.data.token);
             const uid = decoded.id;
             const auth = decoded.auth;
